@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hobbies and Interests</title>
+    <style>
+
+        /* ===== COLORS: CSS variables ===== */
+        :root {
+            --pink: #f48fb1;
+            --hot: #e91e63;
+            --violet: #9c27b0;
+            --lilac: #d8b4fe;
+        }
+
+        /* ===== RESET: box-sizing ===== */
+        * {
+            box-sizing: border-box;
+        }
+
+        /* ===== SMOOTH SCROLLING ===== */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* ===== BODY: font, text color, animated gradient background ===== */
+        body {
+            margin: 0;
+            font-family: "Poppins", "Segoe UI", Arial, sans-serif;
+            line-height: 1.85;
+            color: #f3ecf6;
+            background: linear-gradient(135deg, #000 0%, #1a0027 25%, #4a0a5e 50%, #a0124f 75%, #000 100%);
+            background-size: 300% 300%;
+            background-attachment: fixed;
+            animation: shift 18s ease infinite;
+        }
+
+        /* ===== ANIMATION (@keyframes): moving gradient background ===== */
+        @keyframes shift {
+            0% {
+                background-position: 0 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0 50%;
+            }
+        }
+
+        /* ===== LINKS ===== */
+        a {
+            color: var(--pink);
+        }
+
+        /* ===== ACCESSIBILITY: visible keyboard focus ===== */
+        a:focus-visible {
+            outline: 3px solid #fff;
+            outline-offset: 4px;
+            border-radius: 8px;
+        }
+
+        /* ===== ACCESSIBILITY: skip-to-content link ===== */
+        .skip {
+            position: absolute;
+            left: -999px;
+            background: #fff;
+            color: #000;
+            padding: 8px 14px;
+            z-index: 20;
+        }
+
+        .skip:focus {
+            left: 8px;
+            top: 8px;
+        }
+
+        /* ===== NAVIGATION BAR: sticky, flexbox, gradient, box-shadow ===== */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+            padding: 14px;
+            background: linear-gradient(90deg, #000, #3a0050, #000);
+            border-bottom: 2px solid var(--hot);
+            box-shadow: 0 4px 18px rgba(233,30,99,.4);
+        }
+
+        /* ===== MENU LINKS: transition ===== */
+        nav a {
+            color: var(--pink);
+            text-decoration: none;
+            font-weight: 600;
+            padding: 6px 14px;
+            border-radius: 999px;
+            transition: background .3s, transform .3s, box-shadow .3s;
+        }
+
+        /* ===== MENU HOVER / CURRENT PAGE: translateY() ===== */
+        nav a:hover,
+        nav a[aria-current] {
+            background: var(--hot);
+            color: #fff;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 14px rgba(233,30,99,.6);
+        }
+
+        /* ===== DECORATIVE GRADIENT BAR ===== */
+        .bars {
+            height: 6px;
+            background: linear-gradient(90deg, #12001c, #740E3C, #E91E63, #c084fc, #12001c);
+        }
+
+        /* ===== HERO HEADER: fade-in animation ===== */
+        .hero {
+            text-align: center;
+            padding: 70px 20px 20px;
+            animation: rise .9s ease both;
+        }
+
+        /* ===== ANIMATION (@keyframes): fade in + slide up (opacity + translateY) ===== */
+        @keyframes rise {
+            from {
+                opacity: 0;
+                transform: translateY(25px);
+            }
+            to {
+                opacity: 1;
+                transform: none;
+            }
+        }
+
+        /* ===== TITLE: text-shadow + glow animation ===== */
+        h1 {
+            font-size: clamp(2rem, 6vw, 3.5rem);
+            margin: 0 0 6px;
+            color: #fff;
+            letter-spacing: 1px;
+            text-shadow: 0 0 14px var(--hot), 3px 3px 0 var(--violet), 6px 6px 16px rgba(0,0,0,.7);
+            animation: glow 3s ease-in-out infinite alternate;
+        }
+
+        /* ===== ANIMATION (@keyframes): glowing title ===== */
+        @keyframes glow {
+            from {
+                text-shadow:
+                    0 0 6px var(--hot),
+                    3px 3px 0 var(--violet),
+                    6px 6px 16px rgba(0,0,0,.7);
+            }
+            to {
+                text-shadow:
+                    0 0 24px var(--hot),
+                    3px 3px 0 var(--violet),
+                    6px 6px 16px rgba(0,0,0,.7);
+            }
+        }
+
+        /* ===== HEADINGS ===== */
+        h2 {
+            color: #c084fc;
+            margin: 0 0 18px;
+            text-shadow: 0 0 8px rgba(192,132,252,.5);
+        }
+
+        /* ===== TEXT STYLES: tagline, emoji dots, paragraphs ===== */
+        .tag {
+            color: var(--lilac);
+            font-style: italic;
+            margin: 0;
+        }
+
+        .dots {
+            color: var(--pink);
+            letter-spacing: 6px;
+            margin: 22px 0 10px;
+        }
+
+        p {
+            margin: 0 0 1.2em;
+        }
+
+        h2.c {
+            margin: 56px 0 8px;
+        }
+
+        p.c {
+            margin: 44px 0 14px;
+        }
+
+        /* ===== MAIN CONTENT: centered container with fade-in ===== */
+        main {
+            max-width: 1080px;
+            margin: 0 auto;
+            padding: 24px 28px 80px;
+            animation: rise 1s ease both;
+        }
+
+        /* ===== PANELS: dark boxes with box-shadow ===== */
+        .panel {
+            background: rgba(5,0,10,.85);
+            border-radius: 20px;
+            padding: 40px 36px;
+            margin: 48px 0;
+            box-shadow: 0 8px 24px rgba(0,0,0,.6);
+        }
+
+        /* ===== CHIPS: pill-shaped list items ===== */
+        .chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 18px;
+            justify-content: center;
+            padding: 0;
+            margin: 28px 0;
+            list-style: none;
+        }
+
+        .chips li {
+            background: #1a001f;
+            color: var(--pink);
+            font-weight: 600;
+            padding: 11px 24px;
+            border-radius: 999px;
+            box-shadow: 0 6px 14px rgba(0,0,0,.6);
+            transition: transform .3s, background .3s;
+        }
+
+        /* ===== CHIP HOVER: scale() + rotate() ===== */
+        .chips li:hover {
+            transform: scale(1.1) rotate(-2deg);
+            background: linear-gradient(135deg, #6a1b9a, #e91e63);
+            color: #fff;
+        }
+
+        /* ===== PHOTO FRAMES: border, box-shadow, transition ===== */
+        .pic {
+            position: relative;
+            margin: 0;
+            border-radius: 18px;
+            overflow: hidden;
+            aspect-ratio: 4/3;
+            border: 4px solid var(--violet);
+            outline: 3px solid #c0c0c0;
+            background: linear-gradient(135deg, #1a0027, #7a0f45);
+            box-shadow: 0 10px 26px rgba(0,0,0,.7);
+            transition: transform .4s, box-shadow .4s;
+        }
+
+        .pic::before {
+            content: attr(data-e);
+            position: absolute;
+            inset: 0;
+            display: grid;
+            place-items: center;
+            font-size: 3.5rem;
+        }
+
+        .pic img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: .8;
+            transition: opacity .4s, transform .6s;
+        }
+
+        /* ===== PHOTO HOVER: scale() + rotate() ===== */
+        .pic:hover {
+            transform: scale(1.04) rotate(-1.5deg);
+            box-shadow: 0 16px 34px rgba(233,30,99,.65);
+        }
+
+        .pic:hover img {
+            opacity: 1;
+            transform: scale(1.08);
+        }
+
+        .pic figcaption {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            padding: 8px 12px;
+            background: linear-gradient(transparent, rgba(0,0,0,.85));
+            font-size: .85rem;
+            text-align: center;
+            z-index: 2;
+        }
+
+        /* ===== LAYOUT: photo row (CSS Grid) ===== */
+        .row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+            gap: 32px;
+            margin: 44px 0;
+        }
+
+        /* ===== BUTTONS: gradient, box-shadow, transition ===== */
+        .btn {
+            display: inline-block;
+            text-decoration: none;
+            color: #fff;
+            font-weight: 700;
+            padding: 14px 34px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, var(--violet), var(--hot));
+            box-shadow: 0 6px 16px rgba(233,30,99,.4);
+            transition: transform .3s, box-shadow .3s, filter .3s;
+        }
+
+        /* ===== BUTTON HOVER: translateY() + scale() ===== */
+        .btn:hover {
+            transform: translateY(-4px) scale(1.07);
+            box-shadow: 0 12px 26px rgba(233,30,99,.7);
+            filter: brightness(1.2);
+        }
+
+        .btn:active {
+            transform: scale(.96);
+        }
+
+        /* ===== UTILITY: centered text ===== */
+        .c {
+            text-align: center;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            text-align: center;
+            padding: 44px 20px;
+            color: var(--lilac);
+        }
+
+        /* ===== RESPONSIVE: mobile layout (media query) ===== */
+        @media (max-width: 700px) {
+            main {
+                padding: 16px 18px 60px;
+            }
+
+            .panel {
+                padding: 28px 22px;
+            }
+
+            nav a {
+                padding: 5px 9px;
+                font-size: .9rem;
+            }
+        }
+
+        /* ===== ACCESSIBILITY: reduced-motion preference ===== */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation: none !important;
+                transition: none !important;
+                scroll-behavior: auto !important;
+            }
+
+            .pic:hover,
+            .btn:hover,
+            .chips li:hover,
+            nav a:hover {
+                transform: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- SKIP LINK (accessibility) -->
+    <a class="skip" href="#main">Skip to content</a>
+    <!-- NAVIGATION MENU -->
+    <nav aria-label="Main">
+        <a href="index.html">🏠 Home</a>
+        <a href="about.html">💜 About Me</a>
+        <a href="education.html">🎓 Education</a>
+        <a href="hobbies.html" aria-current="page">🎬 Hobbies</a>
+        <a href="goals.html">🌟 Goals</a>
+        <a href="favorite.html">🔗 Favorite</a>
+        <a href="registration.html">📝 Registration</a>
+        <a href="multimedia.html">🎞️ Multimedia</a>
+    </nav>
+    <!-- DECORATIVE GRADIENT BAR -->
+    <div class="bars"></div>
+    <!-- HEADER: page title -->
+    <header class="hero">
+        <h1>My Hobbies and Interests</h1>
+        <p class="tag">🎬 What I love doing in my free time 🎬</p>
+        <p class="dots" aria-hidden="true">🌸 🌷 🌺 🌷 🌸</p>
+    </header>
+    <!-- MAIN CONTENT -->
+    <main id="main">
+        <!-- PHOTO ROW -->
+        <div class="row">
+            <figure class="pic" data-e="🎬">
+                <img src="images/hobby1.jpg" alt="Watching movies, one of my hobbies">
+            </figure>
+            <figure class="pic" data-e="🎵">
+                <img src="images/hobby2.jpg" alt="Listening to music, one of my hobbies">
+            </figure>
+            <figure class="pic" data-e="🌐">
+                <img src="images/hobby3.jpg" alt="Browsing online, one of my hobbies">
+            </figure>
+        </div>
+        <!-- SECTION: What I Enjoy Doing -->
+        <section class="panel">
+            <h2>What I Enjoy Doing</h2>
+            <p>During my free time, I enjoy simple things that make my everyday life more enjoyable:</p>
+            <!-- LIST (styled as chips) -->
+            <ul class="chips">
+                <li>🍽️ Eating</li>
+                <li>🎬 Watching Movies</li>
+                <li>🌐 Browsing Online</li>
+                <li>🎵 Listening to Music</li>
+                <li>😴 Sleeping</li>
+            </ul>
+            <p class="c">Even though my hobbies may sound simple, these are some of the things that make my everyday life more enjoyable.</p>
+        </section>
+        <p class="c"><a class="btn" href="index.html">← BACK TO HOME</a></p>
+    </main>
+    <!-- FOOTER -->
+    <footer>💜 Ma. Blesilda C. Narca · BSIT · CTU - Argao Campus 💜</footer>
+</body>
+</html>

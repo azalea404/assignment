@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration</title>
+    <style>
+
+        /* ===== COLORS: CSS variables ===== */
+        :root {
+            --pink: #f48fb1;
+            --hot: #e91e63;
+            --violet: #9c27b0;
+            --lilac: #d8b4fe;
+        }
+
+        /* ===== RESET: box-sizing ===== */
+        * {
+            box-sizing: border-box;
+        }
+
+        /* ===== SMOOTH SCROLLING ===== */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* ===== BODY: font, text color, animated gradient background ===== */
+        body {
+            margin: 0;
+            font-family: "Poppins", "Segoe UI", Arial, sans-serif;
+            line-height: 1.85;
+            color: #f3ecf6;
+            background: linear-gradient(135deg, #000 0%, #1a0027 25%, #4a0a5e 50%, #a0124f 75%, #000 100%);
+            background-size: 300% 300%;
+            background-attachment: fixed;
+            animation: shift 18s ease infinite;
+        }
+
+        /* ===== ANIMATION (@keyframes): moving gradient background ===== */
+        @keyframes shift {
+            0% {
+                background-position: 0 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0 50%;
+            }
+        }
+
+        /* ===== LINKS ===== */
+        a {
+            color: var(--pink);
+        }
+
+        /* ===== ACCESSIBILITY: visible keyboard focus ===== */
+        a:focus-visible {
+            outline: 3px solid #fff;
+            outline-offset: 4px;
+            border-radius: 8px;
+        }
+
+        /* ===== ACCESSIBILITY: skip-to-content link ===== */
+        .skip {
+            position: absolute;
+            left: -999px;
+            background: #fff;
+            color: #000;
+            padding: 8px 14px;
+            z-index: 20;
+        }
+
+        .skip:focus {
+            left: 8px;
+            top: 8px;
+        }
+
+        /* ===== NAVIGATION BAR: sticky, flexbox, gradient, box-shadow ===== */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+            padding: 14px;
+            background: linear-gradient(90deg, #000, #3a0050, #000);
+            border-bottom: 2px solid var(--hot);
+            box-shadow: 0 4px 18px rgba(233,30,99,.4);
+        }
+
+        /* ===== MENU LINKS: transition ===== */
+        nav a {
+            color: var(--pink);
+            text-decoration: none;
+            font-weight: 600;
+            padding: 6px 14px;
+            border-radius: 999px;
+            transition: background .3s, transform .3s, box-shadow .3s;
+        }
+
+        /* ===== MENU HOVER / CURRENT PAGE: translateY() ===== */
+        nav a:hover,
+        nav a[aria-current] {
+            background: var(--hot);
+            color: #fff;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 14px rgba(233,30,99,.6);
+        }
+
+        /* ===== DECORATIVE GRADIENT BAR ===== */
+        .bars {
+            height: 6px;
+            background: linear-gradient(90deg, #12001c, #740E3C, #E91E63, #c084fc, #12001c);
+        }
+
+        /* ===== HERO HEADER: fade-in animation ===== */
+        .hero {
+            text-align: center;
+            padding: 70px 20px 20px;
+            animation: rise .9s ease both;
+        }
+
+        /* ===== ANIMATION (@keyframes): fade in + slide up (opacity + translateY) ===== */
+        @keyframes rise {
+            from {
+                opacity: 0;
+                transform: translateY(25px);
+            }
+            to {
+                opacity: 1;
+                transform: none;
+            }
+        }
+
+        /* ===== TITLE: text-shadow + glow animation ===== */
+        h1 {
+            font-size: clamp(2rem, 6vw, 3.5rem);
+            margin: 0 0 6px;
+            color: #fff;
+            letter-spacing: 1px;
+            text-shadow: 0 0 14px var(--hot), 3px 3px 0 var(--violet), 6px 6px 16px rgba(0,0,0,.7);
+            animation: glow 3s ease-in-out infinite alternate;
+        }
+
+        /* ===== ANIMATION (@keyframes): glowing title ===== */
+        @keyframes glow {
+            from {
+                text-shadow:
+                    0 0 6px var(--hot),
+                    3px 3px 0 var(--violet),
+                    6px 6px 16px rgba(0,0,0,.7);
+            }
+            to {
+                text-shadow:
+                    0 0 24px var(--hot),
+                    3px 3px 0 var(--violet),
+                    6px 6px 16px rgba(0,0,0,.7);
+            }
+        }
+
+        /* ===== HEADINGS ===== */
+        h2 {
+            color: #c084fc;
+            margin: 0 0 18px;
+            text-shadow: 0 0 8px rgba(192,132,252,.5);
+        }
+
+        /* ===== TEXT STYLES: tagline, emoji dots, paragraphs ===== */
+        .tag {
+            color: var(--lilac);
+            font-style: italic;
+            margin: 0;
+        }
+
+        .dots {
+            color: var(--pink);
+            letter-spacing: 6px;
+            margin: 22px 0 10px;
+        }
+
+        p {
+            margin: 0 0 1.2em;
+        }
+
+        h2.c {
+            margin: 56px 0 8px;
+        }
+
+        p.c {
+            margin: 44px 0 14px;
+        }
+
+        /* ===== MAIN CONTENT: centered container with fade-in ===== */
+        main {
+            max-width: 1080px;
+            margin: 0 auto;
+            padding: 24px 28px 80px;
+            animation: rise 1s ease both;
+        }
+
+        /* ===== LAYOUT: two columns (CSS Grid) ===== */
+        .split {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 56px;
+            align-items: center;
+            margin: 30px 0 50px;
+        }
+
+        /* ===== LAYOUT: card grid (CSS Grid) ===== */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 34px;
+            margin: 44px 0;
+        }
+
+        /* ===== CARDS: gradient background, box-shadow, transition ===== */
+        .card {
+            background: linear-gradient(145deg, rgba(5,0,10,.92), rgba(60,5,50,.85));
+            border-radius: 20px;
+            padding: 34px 30px;
+            box-shadow: 0 10px 26px rgba(0,0,0,.65), 0 0 0 1px rgba(244,143,177,.25);
+            transition: transform .4s, box-shadow .4s, background .4s;
+        }
+
+        /* ===== CARD HOVER: translateY() + scale() + rotate() ===== */
+        .card:hover {
+            transform: translateY(-8px) scale(1.02) rotate(-.5deg);
+            background: linear-gradient(145deg, rgba(40,0,60,.95), rgba(150,15,80,.85));
+            box-shadow: 0 20px 40px rgba(233,30,99,.55), 0 0 0 2px var(--pink);
+        }
+
+        .card .e {
+            font-size: 2.2rem;
+            display: block;
+        }
+
+        .card h3 {
+            margin: .5em 0 .6em;
+            color: var(--pink);
+        }
+
+        .card p {
+            margin: 0 0 22px;
+        }
+
+        /* ===== NUMBER BADGE ===== */
+        .num {
+            display: inline-grid;
+            place-items: center;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--violet), var(--hot));
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        /* ===== PANELS: dark boxes with box-shadow ===== */
+        .panel {
+            background: rgba(5,0,10,.85);
+            border-radius: 20px;
+            padding: 40px 36px;
+            margin: 48px 0;
+            box-shadow: 0 8px 24px rgba(0,0,0,.6);
+        }
+
+        /* ===== CHIPS: pill-shaped list items ===== */
+        .chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 18px;
+            justify-content: center;
+            padding: 0;
+            margin: 28px 0;
+            list-style: none;
+        }
+
+        .chips li {
+            background: #1a001f;
+            color: var(--pink);
+            font-weight: 600;
+            padding: 11px 24px;
+            border-radius: 999px;
+            box-shadow: 0 6px 14px rgba(0,0,0,.6);
+            transition: transform .3s, background .3s;
+        }
+
+        /* ===== CHIP HOVER: scale() + rotate() ===== */
+        .chips li:hover {
+            transform: scale(1.1) rotate(-2deg);
+            background: linear-gradient(135deg, #6a1b9a, #e91e63);
+            color: #fff;
+        }
+
+        /* ===== PHOTO FRAMES: border, box-shadow, transition ===== */
+        .pic {
+            position: relative;
+            margin: 0;
+            border-radius: 18px;
+            overflow: hidden;
+            aspect-ratio: 4/3;
+            border: 4px solid var(--violet);
+            outline: 3px solid #c0c0c0;
+            background: linear-gradient(135deg, #1a0027, #7a0f45);
+            box-shadow: 0 10px 26px rgba(0,0,0,.7);
+            transition: transform .4s, box-shadow .4s;
+        }
+
+        .pic::before {
+            content: attr(data-e);
+            position: absolute;
+            inset: 0;
+            display: grid;
+            place-items: center;
+            font-size: 3.5rem;
+        }
+
+        .pic img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: .8;
+            transition: opacity .4s, transform .6s;
+        }
+
+        /* ===== PHOTO HOVER: scale() + rotate() ===== */
+        .pic:hover {
+            transform: scale(1.04) rotate(-1.5deg);
+            box-shadow: 0 16px 34px rgba(233,30,99,.65);
+        }
+
+        .pic:hover img {
+            opacity: 1;
+            transform: scale(1.08);
+        }
+
+        .pic figcaption {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            padding: 8px 12px;
+            background: linear-gradient(transparent, rgba(0,0,0,.85));
+            font-size: .85rem;
+            text-align: center;
+            z-index: 2;
+        }
+
+        /* ===== PROFILE PHOTO RING: rotating conic-gradient ===== */
+        .me {
+            width: 220px;
+            aspect-ratio: 1;
+            border-radius: 50%;
+            padding: 5px;
+            background: conic-gradient(var(--hot), var(--violet), #000, var(--hot));
+            animation: spin 8s linear infinite;
+        }
+
+        .me .pic {
+            height: 100%;
+            border-radius: 50%;
+            aspect-ratio: 1;
+            border: none;
+            outline: none;
+            animation: spin 8s linear infinite reverse;
+        }
+
+        /* ===== ANIMATION (@keyframes): spin ===== */
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* ===== LAYOUT: photo row (CSS Grid) ===== */
+        .row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+            gap: 32px;
+            margin: 44px 0;
+        }
+
+        /* ===== TIMELINE ===== */
+        .tl {
+            border-left: 4px solid var(--hot);
+            margin: 36px 0 44px 16px;
+            padding-left: 34px;
+        }
+
+        .tl .card {
+            margin-bottom: 36px;
+            position: relative;
+        }
+
+        .tl .card::before {
+            content: "";
+            position: absolute;
+            left: -49px;
+            top: 34px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--hot);
+            box-shadow: 0 0 12px var(--hot);
+        }
+
+        /* ===== BUTTONS: gradient, box-shadow, transition ===== */
+        .btn {
+            display: inline-block;
+            text-decoration: none;
+            color: #fff;
+            font-weight: 700;
+            padding: 14px 34px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, var(--violet), var(--hot));
+            box-shadow: 0 6px 16px rgba(233,30,99,.4);
+            transition: transform .3s, box-shadow .3s, filter .3s;
+        }
+
+        /* ===== BUTTON HOVER: translateY() + scale() ===== */
+        .btn:hover {
+            transform: translateY(-4px) scale(1.07);
+            box-shadow: 0 12px 26px rgba(233,30,99,.7);
+            filter: brightness(1.2);
+        }
+
+        .btn:active {
+            transform: scale(.96);
+        }
+
+        /* ===== PULSING BUTTON ===== */
+        .pulse {
+            animation: pulse 2.5s ease-in-out infinite;
+        }
+
+        /* ===== ANIMATION (@keyframes): pulsing glow ===== */
+        @keyframes pulse {
+            0%,
+            100% {
+                box-shadow: 0 0 6px rgba(233,30,99,.4);
+            }
+            50% {
+                box-shadow: 0 0 28px rgba(233,30,99,.95);
+            }
+        }
+
+        /* ===== UTILITY: centered text ===== */
+        .c {
+            text-align: center;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            text-align: center;
+            padding: 44px 20px;
+            color: var(--lilac);
+        }
+
+        /* ===== QUOTE STYLE ===== */
+        .q {
+            font-size: 1.2rem;
+            font-style: italic;
+            text-align: center;
+            border-left: 4px solid var(--hot);
+            padding: 6px 0 6px 22px;
+            margin: 0;
+        }
+
+        /* ===== DEFINITION LIST ===== */
+        dl {
+            display: grid;
+            grid-template-columns: max-content 1fr;
+            gap: 14px 24px;
+            margin: 0;
+        }
+
+        dt {
+            color: var(--pink);
+            font-weight: 600;
+        }
+
+        dd {
+            margin: 0;
+        }
+
+        /* ===== RESPONSIVE: mobile layout (media query) ===== */
+        @media (max-width: 700px) {
+            main {
+                padding: 16px 18px 60px;
+            }
+
+            .split {
+                gap: 30px;
+                grid-template-columns: 1fr;
+                justify-items: center;
+                text-align: center;
+            }
+
+            .panel {
+                padding: 28px 22px;
+            }
+
+            .tl {
+                padding-left: 26px;
+            }
+
+            .tl .card::before {
+                left: -41px;
+            }
+
+            dl {
+                grid-template-columns: 1fr;
+            }
+
+            nav a {
+                padding: 5px 9px;
+                font-size: .9rem;
+            }
+
+            .me {
+                width: 180px;
+            }
+        }
+
+        /* ===== ACCESSIBILITY: reduced-motion preference ===== */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation: none !important;
+                transition: none !important;
+                scroll-behavior: auto !important;
+            }
+
+            .card:hover,
+            .pic:hover,
+            .btn:hover,
+            .chips li:hover,
+            nav a:hover {
+                transform: none;
+            }
+        }
+
+        /* ===== midterm additions: table, form, media ===== */
+
+        .scroll {
+            overflow-x: auto;
+        }
+
+        /* ===== TABLE ===== */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 560px;
+        }
+
+        caption {
+            text-align: left;
+            color: var(--lilac);
+            padding-bottom: 10px;
+            font-style: italic;
+        }
+
+        /* ===== TABLE HEADER ===== */
+        th {
+            background: linear-gradient(90deg,var(--violet),var(--hot));
+            color: #fff;
+            text-align: left;
+            padding: 12px 14px;
+        }
+
+        td {
+            padding: 12px 14px;
+            border-bottom: 1px solid rgba(244,143,177,.25);
+        }
+
+        tbody tr:hover {
+            background: rgba(233,30,99,.18);
+        }
+
+        /* ===== FORM GROUPS ===== */
+        fieldset {
+            border: 1px solid rgba(244,143,177,.4);
+            border-radius: 16px;
+            margin: 0 0 26px;
+            padding: 20px 24px;
+        }
+
+        legend {
+            color: var(--pink);
+            font-weight: 700;
+            padding: 0 10px;
+        }
+
+        .f {
+            display: grid;
+            grid-template-columns: repeat(auto-fit,minmax(230px,1fr));
+            gap: 18px;
+        }
+
+        /* ===== FORM LABELS ===== */
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: var(--lilac);
+        }
+
+        input[type=text],
+        input[type=email],
+        input[type=password],
+        input[type=number],
+        input[type=date],
+        input[type=tel],
+        select,
+        textarea {
+            width: 100%;
+            padding: 11px 14px;
+            border-radius: 12px;
+            border: 2px solid rgba(192,132,252,.5);
+            background: rgba(10,0,20,.85);
+            color: #fff;
+            font: inherit;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: var(--hot);
+            box-shadow: 0 0 12px rgba(233,30,99,.6);
+        }
+
+        .ch {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 400;
+            margin: 4px 18px 4px 0;
+            color: #f3ecf6;
+        }
+
+        /* ===== FORM BUTTONS ===== */
+        button {
+            font: inherit;
+            font-weight: 700;
+            color: #fff;
+            border: 0;
+            cursor: pointer;
+            padding: 14px 34px;
+            border-radius: 999px;
+            background: linear-gradient(135deg,var(--violet),var(--hot));
+            margin-right: 12px;
+            transition: transform .3s,filter .3s;
+        }
+
+        button[type=reset] {
+            background: #2a0836;
+            border: 2px solid var(--pink);
+        }
+
+        button:hover {
+            transform: translateY(-4px);
+            filter: brightness(1.2);
+        }
+
+        button:focus-visible,
+        input:focus-visible {
+            outline: 3px solid #fff;
+            outline-offset: 3px;
+        }
+
+        /* ===== MEDIA PLAYERS ===== */
+        audio,
+        video,
+        iframe {
+            width: 100%;
+            border-radius: 16px;
+            box-shadow: 0 8px 24px rgba(0,0,0,.6);
+        }
+
+        iframe {
+            aspect-ratio: 16/9;
+            border: 0;
+        }
+
+        /* ===== NOTE BOX ===== */
+        .note {
+            background: rgba(216,180,254,.12);
+            border-left: 4px solid var(--hot);
+            padding: 10px 18px;
+            border-radius: 0 12px 12px 0;
+        }
+
+        /* ===== LOGO IMAGE ===== */
+        .logo {
+            width: 150px;
+            height: 150px;
+            filter: drop-shadow(0 0 14px var(--hot));
+        }
+    </style>
+</head>
+<body>
+    <!-- SKIP LINK (accessibility) -->
+    <a class="skip" href="#main">Skip to content</a>
+    <!-- NAVIGATION MENU -->
+    <nav aria-label="Main">
+        <a href="index.html">🏠 Home</a>
+        <a href="about.html">💜 About Me</a>
+        <a href="education.html">🎓 Education</a>
+        <a href="hobbies.html">🎬 Hobbies</a>
+        <a href="goals.html">🌟 Goals</a>
+        <a href="favorite.html">🔗 Favorite</a>
+        <a href="registration.html" aria-current="page">📝 Registration</a>
+        <a href="multimedia.html">🎞️ Multimedia</a>
+    </nav>
+    <!-- DECORATIVE GRADIENT BAR -->
+    <div class="bars"></div>
+    <!-- HEADER: page title -->
+    <header class="hero">
+        <h1>BSIT Student Registration 📝</h1>
+        <p class="tag">Cebu Technological University - Argao Campus</p>
+        <p class="dots" aria-hidden="true">🌸 🌷 🌺 🌷 🌸</p>
+    </header>
+    <!-- MAIN CONTENT -->
+    <main id="main">
+        <!-- SECTION: Student Information -->
+        <section class="panel">
+            <h2>Student Information</h2>
+            <div class="scroll">
+                <!-- STUDENT TABLE -->
+                <table>
+                    <caption>List of registered BSIT students</caption>
+                    <thead><tr><th scope="col">Student ID</th><th scope="col">Full Name</th><th scope="col">Program</th><th scope="col">Year Level</th><th scope="col">Email</th></tr></thead>
+                    <tbody>
+                        <tr><td>2024-0001</td><td>Ma. Blesilda Narca</td><td>BSIT</td><td>2nd Year</td><td>blesilda@gmail.com</td></tr>
+                        <tr><td>2024-0002</td><td>Krista Innova Balderas</td><td>BSIT</td><td>2nd Year</td><td>krista@gmail.com</td></tr>
+                        <tr><td>2023-0015</td><td>Clent Bryan Bajenting</td><td>BSIT</td><td>2nd Year</td><td>clent@gmail.com</td></tr>
+                        <tr><td>2023-0032</td><td>Kaye Fegarido</td><td>BSIT</td><td>2nd Year</td><td>kaye@gmail.com</td></tr>
+                        <tr><td>2025-0008</td><td>Mirell Ann Mamac</td><td>BSIT</td><td>2nd Year</td><td>mirell@gmail.com</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        <!-- SECTION: Navigation / Useful Links -->
+        <section class="panel">
+            <h2>Navigation / Useful Links</h2>
+            <!-- LIST (styled as chips) -->
+            <ul class="chips">
+                <li><a href="index.html">🏠 Home</a></li>
+                <li><a href="about.html">💜 About Me</a></li>
+                <li><a href="https://www.ctu.edu.ph" target="_blank">🎓 CTU Website</a></li>
+                <li><a href="https://www.google.com" target="_blank">📘 Google</a></li>
+                <li><a href="#register">📝 Jump to Form</a></li>
+            </ul>
+        </section>
+        <!-- SECTION: Registration Form -->
+        <section class="panel" id="register">
+            <h2>Registration Form</h2>
+            <!-- REGISTRATION FORM -->
+            <form action="#" method="post">
+                <!-- FIELDSET: Personal Details -->
+                <fieldset>
+                    <legend>Personal Details</legend>
+                    <div class="f">
+                        <div><label for="fullname">Full Name</label><input type="text" id="fullname" name="fullname" placeholder="Juan Dela Cruz" required></div>
+                        <div><label for="email">Email</label><input type="email" id="email" name="email" placeholder="name@example.com" required></div>
+                        <div><label for="password">Password</label><input type="password" id="password" name="password" minlength="8" required></div>
+                        <div><label for="age">Age</label><input type="number" id="age" name="age" min="15" max="60" required></div>
+                        <div><label for="birthdate">Birthdate</label><input type="date" id="birthdate" name="birthdate" required></div>
+                        <div><label for="mobile">Mobile Number</label><input type="tel" id="mobile" name="mobile" placeholder="09123456789" pattern="[0-9]{11}" required></div>
+                    </div>
+                </fieldset>
+                <!-- FIELDSET: Academic Details -->
+                <fieldset>
+                    <legend>Academic Details</legend>
+                    <div class="f">
+                        <div><label for="program">Program</label>
+                        <select id="program" name="program" required>
+                            <option value="">-- Select program --</option>
+                            <option>BS Information Technology</option><option>BS Computer Science</option><option>BS Computer Engineering</option><option>BS Information Systems</option>
+                        </select></div>
+                    </div>
+                    <p><strong>Year Level</strong><br>
+                    <label class="ch"><input type="radio" name="year" value="1" required> 1st Year</label>
+                    <label class="ch"><input type="radio" name="year" value="2"> 2nd Year</label>
+                    <label class="ch"><input type="radio" name="year" value="3"> 3rd Year</label>
+                    <label class="ch"><input type="radio" name="year" value="4"> 4th Year</label></p>
+                    <p><strong>Programming Skills</strong><br>
+                    <label class="ch"><input type="checkbox" name="skills" value="html"> HTML</label>
+                    <label class="ch"><input type="checkbox" name="skills" value="css"> CSS</label>
+                    <label class="ch"><input type="checkbox" name="skills" value="js"> JavaScript</label>
+                    <label class="ch"><input type="checkbox" name="skills" value="python"> Python</label>
+                    <label class="ch"><input type="checkbox" name="skills" value="java"> Java</label></p>
+                </fieldset>
+                <!-- FIELDSET: Address / Message -->
+                <fieldset>
+                    <legend>Address / Message</legend>
+                    <label for="message">Enter your address or a short message</label>
+                    <textarea id="message" name="message" rows="4" placeholder="Barangay, Municipality, Province..."></textarea>
+                </fieldset>
+                <button type="submit">Submit registration</button>
+                <button type="reset">Clear the form</button>
+            </form>
+        </section>
+    </article>
+        </div>
+        <p class="c"><a class="btn" href="index.html">← BACK TO HOME</a></p>
+    </main>
+    <!-- FOOTER -->
+    <footer>💜 Ma. Blesilda C. Narca · BSIT · CTU - Argao Campus 💜</footer>
+</body>
+</html>

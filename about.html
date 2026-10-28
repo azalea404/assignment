@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Me</title>
+    <style>
+
+        /* ===== COLORS: CSS variables ===== */
+        :root {
+            --pink: #f48fb1;
+            --hot: #e91e63;
+            --violet: #9c27b0;
+            --lilac: #d8b4fe;
+        }
+
+        /* ===== RESET: box-sizing ===== */
+        * {
+            box-sizing: border-box;
+        }
+
+        /* ===== SMOOTH SCROLLING ===== */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* ===== BODY: font, text color, animated gradient background ===== */
+        body {
+            margin: 0;
+            font-family: "Poppins", "Segoe UI", Arial, sans-serif;
+            line-height: 1.85;
+            color: #f3ecf6;
+            background: linear-gradient(135deg, #000 0%, #1a0027 25%, #4a0a5e 50%, #a0124f 75%, #000 100%);
+            background-size: 300% 300%;
+            background-attachment: fixed;
+            animation: shift 18s ease infinite;
+        }
+
+        /* ===== ANIMATION (@keyframes): moving gradient background ===== */
+        @keyframes shift {
+            0% {
+                background-position: 0 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0 50%;
+            }
+        }
+
+        /* ===== LINKS ===== */
+        a {
+            color: var(--pink);
+        }
+
+        /* ===== ACCESSIBILITY: visible keyboard focus ===== */
+        a:focus-visible {
+            outline: 3px solid #fff;
+            outline-offset: 4px;
+            border-radius: 8px;
+        }
+
+        /* ===== ACCESSIBILITY: skip-to-content link ===== */
+        .skip {
+            position: absolute;
+            left: -999px;
+            background: #fff;
+            color: #000;
+            padding: 8px 14px;
+            z-index: 20;
+        }
+
+        .skip:focus {
+            left: 8px;
+            top: 8px;
+        }
+
+        /* ===== NAVIGATION BAR: sticky, flexbox, gradient, box-shadow ===== */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+            padding: 14px;
+            background: linear-gradient(90deg, #000, #3a0050, #000);
+            border-bottom: 2px solid var(--hot);
+            box-shadow: 0 4px 18px rgba(233,30,99,.4);
+        }
+
+        /* ===== MENU LINKS: transition ===== */
+        nav a {
+            color: var(--pink);
+            text-decoration: none;
+            font-weight: 600;
+            padding: 6px 14px;
+            border-radius: 999px;
+            transition: background .3s, transform .3s, box-shadow .3s;
+        }
+
+        /* ===== MENU HOVER / CURRENT PAGE: translateY() ===== */
+        nav a:hover,
+        nav a[aria-current] {
+            background: var(--hot);
+            color: #fff;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 14px rgba(233,30,99,.6);
+        }
+
+        /* ===== DECORATIVE GRADIENT BAR ===== */
+        .bars {
+            height: 6px;
+            background: linear-gradient(90deg, #12001c, #740E3C, #E91E63, #c084fc, #12001c);
+        }
+
+        /* ===== HERO HEADER: fade-in animation ===== */
+        .hero {
+            text-align: center;
+            padding: 70px 20px 20px;
+            animation: rise .9s ease both;
+        }
+
+        /* ===== ANIMATION (@keyframes): fade in + slide up (opacity + translateY) ===== */
+        @keyframes rise {
+            from {
+                opacity: 0;
+                transform: translateY(25px);
+            }
+            to {
+                opacity: 1;
+                transform: none;
+            }
+        }
+
+        /* ===== TITLE: text-shadow + glow animation ===== */
+        h1 {
+            font-size: clamp(2rem, 6vw, 3.5rem);
+            margin: 0 0 6px;
+            color: #fff;
+            letter-spacing: 1px;
+            text-shadow: 0 0 14px var(--hot), 3px 3px 0 var(--violet), 6px 6px 16px rgba(0,0,0,.7);
+            animation: glow 3s ease-in-out infinite alternate;
+        }
+
+        /* ===== ANIMATION (@keyframes): glowing title ===== */
+        @keyframes glow {
+            from {
+                text-shadow:
+                    0 0 6px var(--hot),
+                    3px 3px 0 var(--violet),
+                    6px 6px 16px rgba(0,0,0,.7);
+            }
+            to {
+                text-shadow:
+                    0 0 24px var(--hot),
+                    3px 3px 0 var(--violet),
+                    6px 6px 16px rgba(0,0,0,.7);
+            }
+        }
+
+        /* ===== HEADINGS ===== */
+        h2 {
+            color: #c084fc;
+            margin: 0 0 18px;
+            text-shadow: 0 0 8px rgba(192,132,252,.5);
+        }
+
+        /* ===== TEXT STYLES: tagline, emoji dots, paragraphs ===== */
+        .tag {
+            color: var(--lilac);
+            font-style: italic;
+            margin: 0;
+        }
+
+        .dots {
+            color: var(--pink);
+            letter-spacing: 6px;
+            margin: 22px 0 10px;
+        }
+
+        p {
+            margin: 0 0 1.2em;
+        }
+
+        h2.c {
+            margin: 56px 0 8px;
+        }
+
+        p.c {
+            margin: 44px 0 14px;
+        }
+
+        /* ===== MAIN CONTENT: centered container with fade-in ===== */
+        main {
+            max-width: 1080px;
+            margin: 0 auto;
+            padding: 24px 28px 80px;
+            animation: rise 1s ease both;
+        }
+
+        /* ===== LAYOUT: card grid (CSS Grid) ===== */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 34px;
+            margin: 44px 0;
+        }
+
+        /* ===== CARDS: gradient background, box-shadow, transition ===== */
+        .card {
+            background: linear-gradient(145deg, rgba(5,0,10,.92), rgba(60,5,50,.85));
+            border-radius: 20px;
+            padding: 34px 30px;
+            box-shadow: 0 10px 26px rgba(0,0,0,.65), 0 0 0 1px rgba(244,143,177,.25);
+            transition: transform .4s, box-shadow .4s, background .4s;
+        }
+
+        /* ===== CARD HOVER: translateY() + scale() + rotate() ===== */
+        .card:hover {
+            transform: translateY(-8px) scale(1.02) rotate(-.5deg);
+            background: linear-gradient(145deg, rgba(40,0,60,.95), rgba(150,15,80,.85));
+            box-shadow: 0 20px 40px rgba(233,30,99,.55), 0 0 0 2px var(--pink);
+        }
+
+        .card .e {
+            font-size: 2.2rem;
+            display: block;
+        }
+
+        .card h3 {
+            margin: .5em 0 .6em;
+            color: var(--pink);
+        }
+
+        .card p {
+            margin: 0 0 22px;
+        }
+
+        /* ===== PANELS: dark boxes with box-shadow ===== */
+        .panel {
+            background: rgba(5,0,10,.85);
+            border-radius: 20px;
+            padding: 40px 36px;
+            margin: 48px 0;
+            box-shadow: 0 8px 24px rgba(0,0,0,.6);
+        }
+
+        /* ===== BUTTONS: gradient, box-shadow, transition ===== */
+        .btn {
+            display: inline-block;
+            text-decoration: none;
+            color: #fff;
+            font-weight: 700;
+            padding: 14px 34px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, var(--violet), var(--hot));
+            box-shadow: 0 6px 16px rgba(233,30,99,.4);
+            transition: transform .3s, box-shadow .3s, filter .3s;
+        }
+
+        /* ===== BUTTON HOVER: translateY() + scale() ===== */
+        .btn:hover {
+            transform: translateY(-4px) scale(1.07);
+            box-shadow: 0 12px 26px rgba(233,30,99,.7);
+            filter: brightness(1.2);
+        }
+
+        .btn:active {
+            transform: scale(.96);
+        }
+
+        /* ===== PULSING BUTTON ===== */
+        .pulse {
+            animation: pulse 2.5s ease-in-out infinite;
+        }
+
+        /* ===== ANIMATION (@keyframes): pulsing glow ===== */
+        @keyframes pulse {
+            0%,
+            100% {
+                box-shadow: 0 0 6px rgba(233,30,99,.4);
+            }
+            50% {
+                box-shadow: 0 0 28px rgba(233,30,99,.95);
+            }
+        }
+
+        /* ===== UTILITY: centered text ===== */
+        .c {
+            text-align: center;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            text-align: center;
+            padding: 44px 20px;
+            color: var(--lilac);
+        }
+
+        /* ===== RESPONSIVE: mobile layout (media query) ===== */
+        @media (max-width: 700px) {
+            main {
+                padding: 16px 18px 60px;
+            }
+
+            .panel {
+                padding: 28px 22px;
+            }
+
+            nav a {
+                padding: 5px 9px;
+                font-size: .9rem;
+            }
+        }
+
+        /* ===== ACCESSIBILITY: reduced-motion preference ===== */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation: none !important;
+                transition: none !important;
+                scroll-behavior: auto !important;
+            }
+
+            .card:hover,
+            .btn:hover,
+            nav a:hover {
+                transform: none;
+            }
+        }
+
+        /* ===== 3D rotating cube ===== */
+
+        .scene {
+            --s: 230px;
+            position: relative;
+            display: grid;
+            place-items: center;
+            height: 370px;
+            perspective: 1100px;
+            margin: 10px 0 24px;
+        }
+
+        .float {
+            transform-style: preserve-3d;
+            animation: bob 5s ease-in-out infinite;
+        }
+
+        /* ===== CUBE: 3D transforms + spin animation ===== */
+        .cube {
+            position: relative;
+            width: var(--s);
+            height: var(--s);
+            transform-style: preserve-3d;
+            transform: rotateX(-18deg) rotateY(-30deg);
+            animation: spin 20s linear infinite;
+        }
+
+        .scene:hover .cube,
+        .scene:hover .ring {
+            animation-play-state: paused;
+        }
+
+        .face {
+            position: absolute;
+            inset: 0;
+            display: grid;
+            place-items: center;
+            overflow: hidden;
+            font-size: 3.2rem;
+            font-weight: 700;
+            color: #fff;
+            border: 3px solid var(--pink);
+            border-radius: 14px;
+            background: linear-gradient(135deg,var(--violet),var(--hot));
+            box-shadow: 0 0 26px rgba(233,30,99,.6),inset 0 0 20px rgba(0,0,0,.35);
+        }
+
+        .face img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .f1 {
+            transform: translateZ(calc(var(--s)/2));
+        }
+
+        .f2 {
+            transform: rotateY(90deg) translateZ(calc(var(--s)/2));
+        }
+
+        .f3 {
+            transform: rotateY(180deg) translateZ(calc(var(--s)/2));
+        }
+
+        .f4 {
+            transform: rotateY(-90deg) translateZ(calc(var(--s)/2));
+        }
+
+        .f5 {
+            transform: rotateX(90deg) translateZ(calc(var(--s)/2));
+        }
+
+        .f6 {
+            transform: rotateX(-90deg) translateZ(calc(var(--s)/2));
+        }
+
+        /* ===== GLOWING RING: orbit animation ===== */
+        .ring {
+            position: absolute;
+            width: calc(var(--s)*1.9);
+            height: calc(var(--s)*1.9);
+            border-radius: 50%;
+            border: 3px dashed var(--lilac);
+            box-shadow: 0 0 22px var(--hot),inset 0 0 22px var(--hot);
+            opacity: .85;
+            transform: rotateX(75deg);
+            animation: orbit 10s linear infinite;
+        }
+
+        /* ===== ANIMATION (@keyframes): spin ===== */
+        @keyframes spin {
+            to {
+                transform: rotateX(342deg) rotateY(690deg);
+            }
+        }
+
+        @keyframes bob {
+            50% {
+                transform: translateY(-14px);
+            }
+        }
+
+        @keyframes orbit {
+            to {
+                transform: rotateX(75deg) rotate(360deg);
+            }
+        }
+
+        .hint {
+            color: var(--lilac);
+            font-style: italic;
+            font-size: .95rem;
+        }
+
+        /* ===== RESPONSIVE: mobile layout (media query) ===== */
+        @media (max-width:700px) {
+            .scene {
+                --s: 170px;
+                height: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- SKIP LINK (accessibility) -->
+    <a class="skip" href="#main">Skip to content</a>
+    <!-- NAVIGATION MENU -->
+    <nav aria-label="Main">
+        <a href="index.html">🏠 Home</a>
+        <a href="about.html" aria-current="page">💜 About Me</a>
+        <a href="education.html">🎓 Education</a>
+        <a href="hobbies.html">🎬 Hobbies</a>
+        <a href="goals.html">🌟 Goals</a>
+        <a href="favorite.html">🔗 Favorite</a>
+        <a href="registration.html">📝 Registration</a>
+        <a href="multimedia.html">🎞️ Multimedia</a>
+    </nav>
+    <!-- DECORATIVE GRADIENT BAR -->
+    <div class="bars"></div>
+    <!-- HEADER: page title -->
+    <header class="hero">
+        <h1>Ma. Blesilda C. Narca</h1>
+        <p class="tag">💜 Getting to know me 💜</p>
+        <p class="dots" aria-hidden="true">🌸 🌷 🌺 🌷 🌸</p>
+    </header>
+    <!-- MAIN CONTENT -->
+    <main id="main">
+        <!-- SECTION: 🧊 Me, in 3D -->
+        <section class="panel c" aria-labelledby="cubeh">
+            <h2 id="cubeh">🧊 Me, in 3D</h2>
+            <!-- 3D ROTATING CUBE -->
+            <div class="scene">
+                <div class="ring" aria-hidden="true"></div>
+                <div class="float">
+                    <div class="cube">
+                        <div class="face f1"><img src="images/photo1.jpg" alt="Photo of Ma. Blesilda Narca"></div>
+                        <div class="face f2"><img src="images/photo2.webp" alt="Photo 2 of Ma. Blesilda Narca"></div>
+                        <div class="face f3"><img src="images/photo3.jpg" alt="Photo 3 of Ma. Blesilda Narca"></div>
+                        <div class="face f4"><img src="images/photo4.jpg" alt="Photo 4 of Ma. Blesilda Narca"></div>
+                        <div class="face f5"><img src="images/photo5.webp" alt="Photo 5 of Ma. Blesilda Narca"></div>
+                        <div class="face f6"><img src="images/photo6.jpg" alt="Photo 6 of Ma. Blesilda Narca"></div>
+                    </div>
+                </div>
+            </div>
+            <p class="hint">Touch the cube to pause it.</p>
+        </section>
+        <!-- SECTION: Who Am I? -->
+        <section class="panel">
+            <h2>Who Am I?</h2>
+            <p>My name is Ma. Blesilda C. Narca, and I am 19 years old. I am currently a second-year Bachelor of Science in Information Technology student at Cebu Technological University - Argao Campus.</p>
+            <p>I would describe myself as a simple person who enjoys spending time doing things that make me comfortable and happy. I am still figuring out many things about myself, especially now that I am in college.</p>
+            <p>I may not always know exactly what I am doing, but I believe that every experience is part of growing up. I try to learn from my experiences and become better little by little.</p>
+        </section>
+        <h2 class="c">Personal Information</h2>
+        <!-- CARDS GRID -->
+        <div class="grid">
+            <article class="card">
+                <span class="e" aria-hidden="true">🎂</span>
+                <h3>Age</h3>
+                <p>19 years old</p>
+            </article>
+            <article class="card">
+                <span class="e" aria-hidden="true">🎓</span>
+                <h3>Program</h3>
+                <p>BSIT</p>
+            </article>
+            <article class="card">
+                <span class="e" aria-hidden="true">📚</span>
+                <h3>Year Level</h3>
+                <p>2nd Year</p>
+            </article>
+            <article class="card">
+                <span class="e" aria-hidden="true">🧾</span>
+                <h3>Section</h3>
+                <p>Algorithm</p>
+            </article>
+            <article class="card">
+                <span class="e" aria-hidden="true">🏫</span>
+                <h3>School</h3>
+                <p>CTU - Argao Campus</p>
+            </article>
+        </div>
+        <p class="c"><a class="btn" href="index.html">← BACK TO HOME</a></p>
+    </main>
+    <!-- FOOTER -->
+    <footer>💜 Ma. Blesilda C. Narca · BSIT · CTU - Argao Campus 💜</footer>
+</body>
+</html>
